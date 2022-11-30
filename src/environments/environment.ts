@@ -2,7 +2,16 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment = {
+import {IEnvironment} from "./ienvironment";
+
+const apiHost = '178.63.13.157:8090/mock-api';
+const apiUrl = `http://${apiHost}/api/`
+
+export const environment: IEnvironment = {
+  apiHost,
+  apiUrl,
+  enableDebugTools: false,
+  logLevel: 'debug',
   production: false
 };
 

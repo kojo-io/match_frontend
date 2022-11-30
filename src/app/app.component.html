@@ -1,18 +1,22 @@
 <div class="h-screen w-screen">
   <div class="flex flex-col w-full h-full">
     <div class="h-auto flex justify-between items-center py-[21px] border-b-2 border-b-gray-100">
+
       <div class="flex space-x-[40px] pl-[35px]">
         <img src="assets/logo.svg">
         <img src="assets/menu.svg">
       </div>
+
       <div class="items-center flex space-x-[11px] font-[700] pr-[100px]">
-        <span class="text-[23px] p-[8px] bg-[#F6CA65] text-white rounded-[5px] leading-[26.95px]">JD</span>
-        <span class="text-[16px] text-[#005B96] leading-[19px]">John Doe</span>
+        <span class="text-[23px] p-[8px] bg-[#F6CA65] text-white rounded-[5px] leading-[26.95px]">{{user.firstName[0]}}{{user.lastName[0]}}</span>
+        <span class="text-[16px] text-[#005B96] leading-[19px]">{{user.firstName}} {{user.lastName}}</span>
       </div>
+
     </div>
     <div class="grow w-full">
       <div class="flex flex-col w-full h-full">
        <div class="flex h-full">
+
          <div class="relative flex-none h-full pt-[41px] pl-[35px]">
            <div class="w-[25.89px] space-y-[24px]">
              <img src="assets/analytics.svg">
@@ -22,31 +26,39 @@
              <img src="assets/power.svg">
            </div>
          </div>
+
          <div class="grow">
-           <div class="flex justify-between w-full">
-             <div class="mt-[35px] ml-[40px] font-[700]">
-               <label class="block text-[#011F4B] text-[24px] leading-[28px]">Reports</label>
-               <span class="text-[#7E8299] text-[16px] leading-[19px]">Easily generate a report of your transactions</span>
+           <div class="flex flex-col w-full h-full">
+
+             <div class="flex h-auto justify-between w-full">
+               <div class="mt-[35px] ml-[40px] font-[700]">
+                 <label class="block text-[#011F4B] text-[24px] leading-[28px]">Reports</label>
+                 <span class="text-[#7E8299] text-[16px] leading-[19px]">Easily generate a report of your transactions</span>
+               </div>
+               <div class="mr-[100px] mt-[33px] flex items-center space-x-[23px]">
+                 <mvp-dropdown [data]="projects" [(ngModel)]="filter.projectId" placeholder="Select project"></mvp-dropdown>
+                 <mvp-dropdown [data]="gateways" [(ngModel)]="filter.gatewayId" placeholder="Select gateway"></mvp-dropdown>
+                 <mvp-date-drop [(ngModel)]="filter.from" placeholder="From date"></mvp-date-drop>
+                 <mvp-date-drop [(ngModel)]="filter.to" placeholder="To date"></mvp-date-drop>
+                 <button class="flex justify-center bg-[#005B96] text-white rounded-[5px] py-[8px] px-[12px]">
+                   <span class="text-[14px] leading-[16px] font-[400]">Generate report</span>
+                 </button>
+               </div>
              </div>
-             <div class="mr-[100px] mt-[33px] flex items-center space-x-[23px]">
-               <div class="flex items-center bg-[#1BC5BD] text-white space-x-[11px] rounded-[5px] py-[8px] px-[12px]">
-                 <span class="text-[14px] leading-[16px] font-[400]">Select Project</span>
-                 <img src="assets/dropicon.svg">
-               </div>
-               <div class="flex items-center bg-[#1BC5BD] text-white space-x-[11px] rounded-[5px] py-[8px] px-[12px]">
-                 <span class="text-[14px] leading-[16px] font-[400]">Select gateway</span>
-                 <img src="assets/dropicon.svg">
-               </div>
-               <div class="flex items-center bg-[#1BC5BD] text-white space-x-[11px] rounded-[5px] py-[8px] px-[12px]">
-                 <span class="text-[14px] leading-[16px] font-[400]">From date</span>
-                 <img src="assets/calendar.svg">
-               </div>
-               <div class="flex items-center bg-[#1BC5BD] text-white space-x-[11px] rounded-[5px] py-[8px] px-[12px]">
-                 <span class="text-[14px] leading-[16px] font-[400]">To date</span>
-                 <img src="assets/calendar.svg">
-               </div>
-               <div class="flex justify-center bg-[#005B96] text-white rounded-[5px] py-[8px] px-[12px]">
-                 <span class="text-[14px] leading-[16px] font-[400]">Generate report</span>
+
+             <div class="grow overflow-auto">
+               <div class="flex flex-wrap content-center w-full h-full">
+                 <div class="flex justify-center w-full">
+                   <div class="font-[700] ">
+                     <label class="text-[24px] mb-[4px] leading-[28px] text-center text-[#011F4B] block">No reports</label>
+                     <p class="text-center text-[16px] leading-[19px] text-[#7E8299] w-[470px] mb-[51px]">
+                       Currently you have no data for the reports to be generated.
+                       Once you start generating traffic through the Balance application
+                       the reports will be shown.
+                     </p>
+                     <img class="m-auto" src="assets/empty.svg">
+                   </div>
+                 </div>
                </div>
              </div>
            </div>

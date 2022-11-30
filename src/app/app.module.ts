@@ -4,17 +4,44 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {FormsModule} from "@angular/forms";
+import { DropdownComponent } from './dropdown/dropdown.component';
+import {fromEvent} from "rxjs";
+import {HttpClientModule} from "@angular/common/http";
+import { DateCompComponent } from './date-comp/date-comp.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DropdownComponent,
+    DateCompComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+  constructor() {
+    //mvp-dropdown
+
+    fromEvent(document, 'click')
+      .subscribe({
+        next: (_) => {
+          if (!document.activeElement?.attributes.getNamedItem('mvp-dropdown')) {
+            if (!document.activeElement?.attributes.getNamedItem('mvp-dropdown')) {
+              const ele = document.getElementsByClassName(' mvp-droplist-container');
+              for (let i = 0; i< ele.length;i++) {
+                if (!ele.item(i)?.classList.contains('hidden')) {
+                  ele.item(i)?.classList.add('hidden')
+                }
+              }
+            }
+          }
+        }
+      })
+  }
+}

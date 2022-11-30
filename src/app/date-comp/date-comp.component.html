@@ -1,0 +1,18 @@
+<div class="relative w-full">
+  <div class="relative">
+    <button [id]="id" class="flex items-center bg-[#1BC5BD] text-white space-x-[11px] rounded-[5px] py-[8px] px-[12px]" mvp-dropdown="mvp-dropdown">
+      <span class="text-[14px] leading-[16px] font-[400]">{{(displayLabel) ? displayLabel : placeholder}}</span>
+      <img src="assets/calendar.svg">
+    </button>
+  </div>
+  <div class="absolute mt-2 rounded-[5px] border min-w-full divide-y bg-white z-10 mvp-droplist-container shadow-2xl {{id}} hidden" >
+    <ng-container *ngIf="selectedDate">
+      <div class="py-[8px] px-[12px] cursor-pointer hover:bg-gray-200" (click)="clear()">
+        <span class="text-[14px] leading-[16px] font-[400] text-red-700">Clear value</span>
+      </div>
+    </ng-container>
+    <div class="py-[8px] px-[12px] cursor-pointer">
+      <input [(ngModel)]="selectedDate" (ngModelChange)="selectItem($event)" type="date" class="rounded-[5px] py-[8px] px-[12px] border outline-0">
+    </div>
+  </div>
+</div>
