@@ -8,12 +8,14 @@ import { DropdownComponent } from './dropdown/dropdown.component';
 import {fromEvent} from "rxjs";
 import {HttpClientModule} from "@angular/common/http";
 import { DateCompComponent } from './date-comp/date-comp.component';
+import { AllProjectsGatewaysComponent } from './all-projects-gateways/all-projects-gateways.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DropdownComponent,
-    DateCompComponent
+    DateCompComponent,
+    AllProjectsGatewaysComponent
   ],
   imports: [
     BrowserModule,

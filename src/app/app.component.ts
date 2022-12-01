@@ -4,6 +4,8 @@ import {User} from "./models/user";
 import {Project} from "./models/project";
 import {Filter} from "./models/filter";
 import {Gateways} from "./models/gateways";
+import {Reports} from "./models/reports";
+import {Dropdown} from "./dropdown/dropdown";
 
 @Component({
   selector: 'app-root',
@@ -13,9 +15,13 @@ import {Gateways} from "./models/gateways";
 export class AppComponent implements OnInit{
   title = 'match_frontend';
   user : User;
-  projects: Array<any> = [];
-  gateways: Array<any> = [];
+  projects: Array<Project> = [];
+  transformedProjectList: Array<Dropdown> = [];
+  gateways: Array<Gateways> = [];
+  transformedGatewaysList: Array<Dropdown> = [];
   filter: Filter;
+
+  reports: Array<Reports> = [];
 
   constructor(private service: AppService) {
     this.user = { firstName: '', lastName: '', email: '', userId: ''};
@@ -28,18 +34,34 @@ export class AppComponent implements OnInit{
       next: (results) => {
         this.user = results[0].data[0];
 
-        this.projects = results[1].data.map((u: Project) => {
-          return {id: u.projectId, value: u.name}
+        this.projects = results[1].data;
+        this.transformedProjectList =  this.projects.map((u: Project) => {
+          return <Dropdown>{id: u.projectId, name: u.name}
         });
 
-        this.gateways = results[2].data.map((u: Gateways) => {
-          return {id: u.gatewayId, value: u.name}
+        this.transformedProjectList.push({
+          id: '',
+          name: 'All projects'
+        });
+
+        this.gateways = results[2].data;
+        this.transformedGatewaysList = this.gateways.map((u: Gateways) => {
+          return <Dropdown>{id: u.gatewayId, name: u.name}
+        });
+
+        this.transformedGatewaysList.push({
+          id: '',
+          name: 'All gateways'
         });
       }
     })
   }
 
-  getValue(event: any) {
-    console.log(event);
+  getReport() {
+    this.service.reports(this.filter).subscribe({
+      next: (result) => {
+        this.reports = result.data;
+      }
+    })
   }
 }

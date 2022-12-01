@@ -37,15 +37,9 @@ export class DropdownComponent implements OnInit, ControlValueAccessor, AfterVie
 
   selectItem(item: Dropdown) {
     this.selectedItem = item;
-    this.displayLabel = this.selectedItem.value;
+    this.displayLabel = this.selectedItem.name;
     this.displayValue = this.selectedItem.id;
     this.onChange(item.id);
-  }
-
-  clear() {
-    this.displayLabel = '';
-    this.selectedItem = null;
-    this.onChange(null)
   }
 
   registerOnChange(fn: (value: any | null) => void): void {

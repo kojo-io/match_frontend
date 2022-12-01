@@ -1,5 +1,5 @@
 export interface Dropdown {
   id: any;
-  value: any;
+  name: any;
 }
 

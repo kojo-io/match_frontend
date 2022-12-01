@@ -38,12 +38,6 @@ export class DateCompComponent implements OnInit {
     this.onChange(item);
   }
 
-  clear() {
-    this.displayLabel = '';
-    this.selectedDate = null;
-    this.onChange(null)
-  }
-
   registerOnChange(fn: (value: string | null) => void): void {
     this.onChange = fn;
   }
