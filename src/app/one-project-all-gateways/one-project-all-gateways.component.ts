@@ -1,25 +1,25 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
+import {Observable, timer} from "rxjs";
 import {Reports} from "../models/reports";
 import {Project} from "../models/project";
 import {Gateways} from "../models/gateways";
 import {AllProjectGateways, AllProjectGatewaysChild, DisplayData} from "../models/all-project-gateways";
-import {Observable, timer} from "rxjs";
-import {Chart, ChartData, ChartOptions, ChartType} from "chart.js";
-import ChartDataLabels from 'chartjs-plugin-datalabels';
+import {Chart, ChartData} from "chart.js";
 import {AppService} from "../app.service";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 
 @Component({
-  selector: 'mvp-all-projects-gateway',
-  templateUrl: './all-projects-gateway.component.html',
+  selector: 'mvp-one-project-all-gateways',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['./all-projects-gateway.component.css']
+  templateUrl: './one-project-all-gateways.component.html',
+  styleUrls: ['./one-project-all-gateways.component.css']
 })
-export class AllProjectsGatewayComponent implements OnInit {
+export class OneProjectAllGatewaysComponent implements OnInit {
   @Input() reports!: Observable<Array<Reports>>;
   @Input() projects: Array<Project> = [];
   @Input() gateways: Array<Gateways> = [];
-  @Input() selectedGateway: string = '';
-  gateWay: string | undefined = '' ;
+  @Input() selectedProject: string = '';
+  project: string | undefined = '' ;
   selectedItem: string = '';
   allProjectGateways: Array<AllProjectGateways> = [];
   displayData!: DisplayData;
@@ -39,14 +39,14 @@ export class AllProjectsGatewayComponent implements OnInit {
     this.reports.subscribe({
       next: (result) => {
         this.allProjectGateways = [];
-        this.gateWay = this.gateways.find((gateWay) => gateWay.gatewayId === this.selectedGateway)?.name;
-        this.projects.forEach((project) => {
-          const list = result.filter(report => report.projectId === project.projectId);
+        this.project = this.projects.find((project) => project.projectId === this.selectedProject)?.name;
+        this.gateways.forEach((gateway) => {
+          const list = result.filter(report => report.gatewayId === gateway.gatewayId);
           /**
            * transform report data for display
            */
           const data: AllProjectGateways = {
-            name : project.name,
+            name : gateway.name,
 
             list: list.map((value) => {
               return <AllProjectGatewaysChild>{
@@ -73,20 +73,20 @@ export class AllProjectsGatewayComponent implements OnInit {
         this.cd.markForCheck();
 
         /**
-        * create project chart labels with their color identifier
-        * */
-        this.chartLabels = this.projects.map((project) => {
+         * create project chart labels with their color identifier
+         * */
+        this.chartLabels = this.gateways.map((gateway) => {
           const color = this.generateBgColor();
-          return { name: project.name, color }
+          return { name: gateway.name, color }
         });
 
         /**
-        * chart final data output
-        * */
+         * chart final data output
+         * */
         this.chartData = {
           datasets: [
-            { data: this.allProjectGateways.map((project) => {
-                return project.total / this.displayData.total * 100}),
+            { data: this.allProjectGateways.map((gateway) => {
+                return gateway.total / this.displayData.total * 100}),
               backgroundColor: this.chartLabels.map((color) => color.color),
               label: 'project',
               datalabels: {

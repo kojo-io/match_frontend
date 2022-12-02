@@ -33,7 +33,7 @@ export class AllProjectsGatewaysComponent implements OnInit {
            * transform report data for display
            */
           const data: AllProjectGateways = {
-            project : project.name,
+            name : project.name,
 
             list: list.map((value) => {
               return <AllProjectGatewaysChild>{

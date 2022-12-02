@@ -5,12 +5,12 @@
       <div class="grow h-auto overflow-auto pr-[19px] pl-[27px] space-y-[5px] pb-[5px]">
         <ng-container *ngFor="let project of displayData.list">
           <div class="w-full">
-            <div [id]="project.project" (click)="collapse(project.project)" class="rounded-[10px] bg-white w-full h-[71px] flex justify-between items-center px-[19px] group hover:cursor-pointer">
-              <span class="font-[700] text-[16px] leading-[19px] text-[#011F4B] group-hover:cursor-pointer">{{project.project}}</span>
+            <div [id]="project.name" (click)="collapse(project.name)" class="rounded-[10px] bg-white w-full h-[71px] flex justify-between items-center px-[19px] group hover:cursor-pointer">
+              <span class="font-[700] text-[16px] leading-[19px] text-[#011F4B] group-hover:cursor-pointer">{{project.name}}</span>
               <span class="font-[700] text-[16px] leading-[19px] text-[#011F4B] group-hover:cursor-pointer">TOTAL: {{project.total | number:'1.0-2'}} USD</span>
             </div>
 
-            <ng-container *ngIf="selectedItem === project.project">
+            <ng-container *ngIf="selectedItem === project.name">
               <div class="w-full pt-[15px] pb-[11px] pl-[15.24px]">
                 <table class="w-full table-fixed">
                   <thead class="bg-white text-[16px] text-[#011F4B] leading-[164.4%] py-[5px]">

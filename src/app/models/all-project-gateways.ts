@@ -1,5 +1,5 @@
 export interface AllProjectGateways {
-  project: string;
+  name: string;
   list: AllProjectGatewaysChild [];
   total: number;
 }

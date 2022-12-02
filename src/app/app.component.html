@@ -78,6 +78,10 @@
                    <mvp-one-project-gateway [projects]="projects" [gateways]="gateways" [reports]="reports" [selectedProject]="filter.projectId" [selectedGateway]="filter.gatewayId"></mvp-one-project-gateway>
                  </ng-container>
 
+                 <ng-container *ngIf="filter.gatewayId === '' && filter.projectId">
+                   <mvp-one-project-all-gateways [projects]="projects" [gateways]="gateways" [reports]="reports" [selectedProject]="filter.projectId"></mvp-one-project-all-gateways>
+                 </ng-container>
+
                </ng-container>
 
              </div>

@@ -12,6 +12,7 @@ import { AllProjectsGatewaysComponent } from './all-projects-gateways/all-projec
 import { AllProjectsGatewayComponent } from './all-projects-gateway/all-projects-gateway.component';
 import {NgChartsModule} from "ng2-charts";
 import { OneProjectGatewayComponent } from './one-project-gateway/one-project-gateway.component';
+import { OneProjectAllGatewaysComponent } from './one-project-all-gateways/one-project-all-gateways.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { OneProjectGatewayComponent } from './one-project-gateway/one-project-ga
     DateCompComponent,
     AllProjectsGatewaysComponent,
     AllProjectsGatewayComponent,
-    OneProjectGatewayComponent
+    OneProjectGatewayComponent,
+    OneProjectAllGatewaysComponent
   ],
   imports: [
     BrowserModule,
