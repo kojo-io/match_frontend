@@ -9,19 +9,26 @@ import {fromEvent} from "rxjs";
 import {HttpClientModule} from "@angular/common/http";
 import { DateCompComponent } from './date-comp/date-comp.component';
 import { AllProjectsGatewaysComponent } from './all-projects-gateways/all-projects-gateways.component';
+import { AllProjectsGatewayComponent } from './all-projects-gateway/all-projects-gateway.component';
+import {NgChartsModule} from "ng2-charts";
+import { OneProjectGatewayComponent } from './one-project-gateway/one-project-gateway.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     DropdownComponent,
     DateCompComponent,
-    AllProjectsGatewaysComponent
+    AllProjectsGatewaysComponent,
+    AllProjectsGatewayComponent,
+    OneProjectGatewayComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -6,6 +6,7 @@ import {Filter} from "./models/filter";
 import {Gateways} from "./models/gateways";
 import {Reports} from "./models/reports";
 import {Dropdown} from "./dropdown/dropdown";
+import {BehaviorSubject} from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,8 @@ export class AppComponent implements OnInit{
   transformedGatewaysList: Array<Dropdown> = [];
   filter: Filter;
 
-  reports: Array<Reports> = [];
+  initialReportData: Array<Reports> = [];
+  reports = new BehaviorSubject(this.initialReportData);
 
   constructor(private service: AppService) {
     this.user = { firstName: '', lastName: '', email: '', userId: ''};
@@ -60,8 +62,13 @@ export class AppComponent implements OnInit{
   getReport() {
     this.service.reports(this.filter).subscribe({
       next: (result) => {
-        this.reports = result.data;
+        this.initialReportData = result.data;
+        this.reports.next(result.data);
       }
     })
+  }
+
+  clear() {
+    this.reports.next([])
   }
 }

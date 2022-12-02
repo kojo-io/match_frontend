@@ -1,0 +1,67 @@
+<div class="flex flex-col h-full w-full space-y-[27px] pb-[107px]">
+  <div class="grid grid-cols-3 w-full h-full gap-[31px]">
+    <div class="grow col-span-2 rounded-[10px] bg-[#F1FAFE] w-full overflow-auto ">
+      <div class="flex flex-col h-full w-full overflow-auto">
+        <span class="pb-[34px] pt-[18px] font-[700] text-[16px] leading-[19px] pl-[24px] text-[#011F4B]">All projects | {{gateWay}}</span>
+        <div class="grow h-auto overflow-auto pr-[19px] pl-[27px] space-y-[5px] pb-[5px]">
+          <ng-container *ngFor="let project of displayData.list">
+            <div class="w-full">
+              <div [id]="project.project" (click)="collapse(project.project)" class="rounded-[10px] bg-white w-full h-[71px] flex justify-between items-center px-[19px] group hover:cursor-pointer">
+                <span class="font-[700] text-[16px] leading-[19px] text-[#011F4B] group-hover:cursor-pointer">{{project.project}}</span>
+                <span class="font-[700] text-[16px] leading-[19px] text-[#011F4B] group-hover:cursor-pointer">TOTAL: {{project.total | number:'1.0-2'}} USD</span>
+              </div>
+
+              <ng-container *ngIf="selectedItem === project.project">
+                <div class="w-full pt-[15px] pb-[11px] pl-[15.24px]">
+                  <table class="w-full table-fixed">
+                    <thead class="bg-white text-[16px] text-[#011F4B] leading-[164.4%] py-[5px]">
+                    <th class="text-left pl-[5.76px]  py-[5px]">Date</th>
+                    <th class="text-center py-[5px]">Transaction ID</th>
+                    <th class="text-right py-[5px] pr-[24.97px]">Amount</th>
+                    </thead>
+                    <tbody>
+                    <tr class="text-[16px] text-[#011F4B] leading-[164.4%] font-[400] py-[5px]" *ngFor="let item of project.list">
+                      <td class="text-left pl-[5.76px] py-[5px]">{{item.date}}</td>
+                      <td class="text-center py-[5px]"> {{item.transactionId}} </td>
+                      <td class="text-right pr-[24.97px] py-[5px]"> {{item.amount}} USD </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </ng-container>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="grow w-ful overflow-auto">
+      <div class="flex flex-col h-full w-full">
+        <div class=" min-h-[53px] w-full flex px-[23px] rounded-[10px] bg-[#F1FAFE] items-center space-x-[44px]">
+          <div *ngFor="let project of chartLabels" class="flex space-x-[12px]">
+            <span class="rounded-[5px] w-[15px] h-[15px]" [ngStyle]="{ 'background-color': project.color }"></span>
+            <span class="font-[400] text-[14px] leading-[16px] text-[#011F4B]">{{project.name}}</span>
+          </div>
+        </div>
+
+        <div class="grow">
+         <div class="flex flex-wrap content-center w-full h-full">
+           <div class="flex justify-center w-full">
+             <div class="relative w-[270px] h-[270px]">
+               <canvas
+                 baseChart
+                 [data]="chartData"
+                 [legend]="false"
+                 [type]="'doughnut'">
+               </canvas>
+             </div>
+           </div>
+         </div>
+        </div>
+
+        <div class=" min-h-[53px] w-full flex px-[20px] rounded-[10px] bg-[#F1FAFE] items-center">
+          <span class="block font-[700] text-[16px] leading-[19px] text-[#011F4B]">GATEWAY TOTAL | {{displayData.total | number: '1.0-2'}} USD</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

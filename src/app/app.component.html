@@ -47,7 +47,8 @@
              </div>
 
              <div class="grow py-[27px] mr-[100px] overflow-auto">
-               <ng-container *ngIf="reports.length === 0">
+
+               <ng-container *ngIf="initialReportData.length === 0">
                  <div class="flex flex-wrap content-center w-full h-full">
                    <div class="flex justify-center w-full">
                      <div class="font-[700] ">
@@ -62,11 +63,23 @@
                    </div>
                  </div>
                </ng-container>
-               <ng-container *ngIf="reports.length > 0">
+
+               <ng-container *ngIf="initialReportData.length > 0">
+
                  <ng-container *ngIf="filter.gatewayId === '' && filter.projectId === ''">
                    <mvp-all-projects-gateways [projects]="projects" [gateways]="gateways" [reports]="reports"></mvp-all-projects-gateways>
                  </ng-container>
+
+                 <ng-container *ngIf="filter.gatewayId && filter.projectId === ''">
+                   <mvp-all-projects-gateway [projects]="projects" [gateways]="gateways" [reports]="reports" [selectedGateway]="filter.gatewayId"></mvp-all-projects-gateway>
+                 </ng-container>
+
+                 <ng-container *ngIf="filter.gatewayId && filter.projectId">
+                   <mvp-one-project-gateway [projects]="projects" [gateways]="gateways" [reports]="reports" [selectedProject]="filter.projectId" [selectedGateway]="filter.gatewayId"></mvp-one-project-gateway>
+                 </ng-container>
+
                </ng-container>
+
              </div>
              <div class="h-auto w-full pb-[22px]">
                <label class="text-[16px] font-[700] leading-[19px] text-[#005B96]">Terms&Conditions | Privacy policy</label>

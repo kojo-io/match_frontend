@@ -35,4 +35,14 @@ export class AppService {
       return v.toString(16);
     });
   }
+
+  random_rgb(): any {
+    let o = Math.round, r = Math.random, s = 255;
+    let color = 'rgb(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s)+')';
+    if (color === 'rgb(0, 0, 0)' || color === 'rgb(255, 255, 255)') {
+      this.random_rgb();
+    } else {
+      return color;
+    }
+  }
 }
