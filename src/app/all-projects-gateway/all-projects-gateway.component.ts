@@ -15,18 +15,23 @@ import {AppService} from "../app.service";
   styleUrls: ['./all-projects-gateway.component.css']
 })
 export class AllProjectsGatewayComponent implements OnInit {
-  @Input() reports!: Observable<Array<Reports>>;
+  @Input() reports: Observable<Array<Reports>> | undefined;
   @Input() projects: Array<Project> = [];
   @Input() gateways: Array<Gateways> = [];
   @Input() selectedGateway: string = '';
   gateWay: string | undefined = '' ;
   selectedItem: string = '';
   allProjectGateways: Array<AllProjectGateways> = [];
-  displayData!: DisplayData;
+  displayData: DisplayData;
   chartOptions: any;
   chartLabels: any[] = [];
   chartData: ChartData<'doughnut'>;
   constructor(private cd: ChangeDetectorRef, private service: AppService) {
+
+    this.displayData = {
+      list: [],
+      total: 0
+    }
     Chart.register(ChartDataLabels);
 
     this.chartData = {
@@ -36,7 +41,7 @@ export class AllProjectsGatewayComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.reports.subscribe({
+    this.reports?.subscribe({
       next: (result) => {
         this.allProjectGateways = [];
         this.gateWay = this.gateways.find((gateWay) => gateWay.gatewayId === this.selectedGateway)?.name;

@@ -13,17 +13,22 @@ import {Observable, timer} from "rxjs";
   styleUrls: ['./all-projects-gateways.component.css']
 })
 export class AllProjectsGatewaysComponent implements OnInit {
-  @Input() reports!: Observable<Array<Reports>>;
+  @Input() reports: Observable<Array<Reports>> | undefined;
   @Input() projects: Array<Project> = [];
   @Input() gateways: Array<Gateways> = [];
   selectedItem: string = '';
   allProjectGateways: Array<AllProjectGateways> = [];
 
-  displayData!: DisplayData;
-  constructor(private cd: ChangeDetectorRef) { }
+  displayData: DisplayData;
+  constructor(private cd: ChangeDetectorRef) {
+    this.displayData = {
+      list: [],
+      total: 0
+    }
+  }
 
   ngOnInit(): void {
-    this.reports.subscribe({
+    this.reports?.subscribe({
       next: (result) => {
         this.allProjectGateways = [];
         this.projects.forEach((project) => {

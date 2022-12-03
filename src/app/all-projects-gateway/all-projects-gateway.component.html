@@ -21,7 +21,7 @@
                     </thead>
                     <tbody>
                     <tr class="text-[16px] text-[#011F4B] leading-[164.4%] font-[400] py-[5px]" *ngFor="let item of project.list">
-                      <td class="text-left pl-[5.76px] py-[5px]">{{item.date}}</td>
+                      <td class="text-left pl-[5.76px] py-[5px]">{{item.date | amDateFormat : 'MM/DD/YYYY'}}</td>
                       <td class="text-center py-[5px]"> {{item.transactionId}} </td>
                       <td class="text-right pr-[24.97px] py-[5px]"> {{item.amount}} USD </td>
                     </tr>

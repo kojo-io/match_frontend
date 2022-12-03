@@ -15,18 +15,22 @@ import ChartDataLabels from "chartjs-plugin-datalabels";
   styleUrls: ['./one-project-all-gateways.component.css']
 })
 export class OneProjectAllGatewaysComponent implements OnInit {
-  @Input() reports!: Observable<Array<Reports>>;
+  @Input() reports: Observable<Array<Reports>> | undefined;
   @Input() projects: Array<Project> = [];
   @Input() gateways: Array<Gateways> = [];
   @Input() selectedProject: string = '';
   project: string | undefined = '' ;
   selectedItem: string = '';
   allProjectGateways: Array<AllProjectGateways> = [];
-  displayData!: DisplayData;
+  displayData: DisplayData;
   chartOptions: any;
   chartLabels: any[] = [];
   chartData: ChartData<'doughnut'>;
   constructor(private cd: ChangeDetectorRef, private service: AppService) {
+    this.displayData = {
+      list: [],
+      total: 0
+    }
     Chart.register(ChartDataLabels);
 
     this.chartData = {
@@ -36,7 +40,7 @@ export class OneProjectAllGatewaysComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.reports.subscribe({
+    this.reports?.subscribe({
       next: (result) => {
         this.allProjectGateways = [];
         this.project = this.projects.find((project) => project.projectId === this.selectedProject)?.name;

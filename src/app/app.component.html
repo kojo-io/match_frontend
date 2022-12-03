@@ -33,7 +33,7 @@
              <div class="flex h-auto justify-between w-full">
                <div class="mt-[35px] font-[700]">
                  <label class="block text-[#011F4B] text-[24px] leading-[28px]">Reports</label>
-                 <span class="text-[#7E8299] text-[16px] leading-[19px]">Easily generate a report of your transactions</span>
+                 <span class="text-[#7E8299] text-[16px] leading-[19px] content">Easily generate a report of your transactions</span>
                </div>
                <div class="mr-[100px] mt-[33px] flex items-center space-x-[23px]">
                  <mvp-dropdown [data]="transformedProjectList" [(ngModel)]="filter.projectId" placeholder="Select project"></mvp-dropdown>
@@ -65,20 +65,19 @@
                </ng-container>
 
                <ng-container *ngIf="initialReportData.length > 0">
-
-                 <ng-container *ngIf="filter.gatewayId === '' && filter.projectId === ''">
+                 <ng-container *ngIf="visibleAllProjectsGateways">
                    <mvp-all-projects-gateways [projects]="projects" [gateways]="gateways" [reports]="reports"></mvp-all-projects-gateways>
                  </ng-container>
 
-                 <ng-container *ngIf="filter.gatewayId && filter.projectId === ''">
+                 <ng-container *ngIf="visibleAllProjectsGateway">
                    <mvp-all-projects-gateway [projects]="projects" [gateways]="gateways" [reports]="reports" [selectedGateway]="filter.gatewayId"></mvp-all-projects-gateway>
                  </ng-container>
 
-                 <ng-container *ngIf="filter.gatewayId && filter.projectId">
+                 <ng-container *ngIf="visibleOneProjectGateway">
                    <mvp-one-project-gateway [projects]="projects" [gateways]="gateways" [reports]="reports" [selectedProject]="filter.projectId" [selectedGateway]="filter.gatewayId"></mvp-one-project-gateway>
                  </ng-container>
 
-                 <ng-container *ngIf="filter.gatewayId === '' && filter.projectId">
+                 <ng-container *ngIf="visibleOneProjectGateways">
                    <mvp-one-project-all-gateways [projects]="projects" [gateways]="gateways" [reports]="reports" [selectedProject]="filter.projectId"></mvp-one-project-all-gateways>
                  </ng-container>
 
@@ -86,7 +85,7 @@
 
              </div>
              <div class="h-auto w-full pb-[22px]">
-               <label class="text-[16px] font-[700] leading-[19px] text-[#005B96]">Terms&Conditions | Privacy policy</label>
+               <label class="text-[16px] font-[700] leading-[19px] text-[#005B96] cursor-pointer">Terms&Conditions | Privacy policy</label>
              </div>
            </div>
          </div>

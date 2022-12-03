@@ -6,7 +6,7 @@ import {Filter} from "./models/filter";
 import {Gateways} from "./models/gateways";
 import {Reports} from "./models/reports";
 import {Dropdown} from "./dropdown/dropdown";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, filter} from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -21,13 +21,17 @@ export class AppComponent implements OnInit{
   gateways: Array<Gateways> = [];
   transformedGatewaysList: Array<Dropdown> = [];
   filter: Filter;
-
   initialReportData: Array<Reports> = [];
   reports = new BehaviorSubject(this.initialReportData);
 
+  visibleAllProjectsGateway = false;
+  visibleAllProjectsGateways = false;
+  visibleOneProjectGateways = false;
+  visibleOneProjectGateway = false;
+
   constructor(private service: AppService) {
     this.user = { firstName: '', lastName: '', email: '', userId: ''};
-    this.filter = { from: '', to: '', projectId: '', gatewayId: '' }
+    this.filter = { from: '', to: '', projectId: '', gatewayId: '' };
   }
 
   ngOnInit(): void {
@@ -64,11 +68,39 @@ export class AppComponent implements OnInit{
       next: (result) => {
         this.initialReportData = result.data;
         this.reports.next(result.data);
+        this.switchView();
       }
     })
   }
 
-  clear() {
-    this.reports.next([])
+  switchView() {
+    if(this.filter.gatewayId === '' && this.filter.projectId === '') {
+      this.visibleAllProjectsGateways = true;
+      this.visibleAllProjectsGateway = false;
+      this.visibleOneProjectGateways = false;
+      this.visibleOneProjectGateway = false;
+    }
+
+    if(this.filter.gatewayId && this.filter.projectId === '') {
+      this.visibleAllProjectsGateways = false;
+      this.visibleAllProjectsGateway = true;
+      this.visibleOneProjectGateways = false;
+      this.visibleOneProjectGateway = false;
+    }
+
+    if(this.filter.gatewayId === '' && this.filter.projectId) {
+      this.visibleAllProjectsGateways = false;
+      this.visibleAllProjectsGateway = false;
+      this.visibleOneProjectGateways = true;
+      this.visibleOneProjectGateway = false;
+    }
+
+    if(this.filter.gatewayId && this.filter.projectId) {
+      this.visibleAllProjectsGateways = false;
+      this.visibleAllProjectsGateway = false;
+      this.visibleOneProjectGateways = false;
+      this.visibleOneProjectGateway = true;
+    }
   }
+
 }

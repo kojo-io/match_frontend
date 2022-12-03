@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {EnvironmentService} from "./environment.service";
-import {forkJoin, Observable} from "rxjs";
+import {BehaviorSubject, forkJoin, Observable, Subject} from "rxjs";
 import {Results} from "./models/results";
 import {User} from "./models/user";
 import {Project} from "./models/project";
@@ -13,8 +13,8 @@ import {Reports} from "./models/reports";
   providedIn: 'root'
 })
 export class AppService {
-
-  constructor(private env: EnvironmentService,
+  report$ = new Subject<Array<Reports>>();
+  constructor(public env: EnvironmentService,
               private httpClient: HttpClient) { }
 
   getAllDropdowns(): Observable<Results<any>[]> {

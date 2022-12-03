@@ -12,7 +12,7 @@ import {AllProjectGateways, AllProjectGatewaysChild, DisplayData} from "../model
   styleUrls: ['./one-project-gateway.component.css']
 })
 export class OneProjectGatewayComponent implements OnInit {
-  @Input() reports!: Observable<Array<Reports>>;
+  @Input() reports: Observable<Array<Reports>> | undefined;
   @Input() projects: Array<Project> = [];
   @Input() gateways: Array<Gateways> = [];
   selectedItem: string = '';
@@ -23,10 +23,16 @@ export class OneProjectGatewayComponent implements OnInit {
   project: string | undefined = '' ;
   allProjectGateways: Array<AllProjectGateways> = [];
 
-  constructor(private cd: ChangeDetectorRef) { }
+  constructor(private cd: ChangeDetectorRef) {
+    this.allProjectGateways = [...this.allProjectGateways, {
+      list: [],
+      total: 0,
+      name: ''
+    }]
+  }
 
   ngOnInit(): void {
-    this.reports.subscribe({
+    this.reports?.subscribe({
       next: (result) => {
         this.allProjectGateways = [];
         this.gateWay = this.gateways.find((gateWay) => gateWay.gatewayId === this.selectedGateway)?.name;

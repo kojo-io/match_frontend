@@ -13,6 +13,7 @@ import { AllProjectsGatewayComponent } from './all-projects-gateway/all-projects
 import {NgChartsModule} from "ng2-charts";
 import { OneProjectGatewayComponent } from './one-project-gateway/one-project-gateway.component';
 import { OneProjectAllGatewaysComponent } from './one-project-all-gateways/one-project-all-gateways.component';
+import {MomentModule} from "ngx-moment";
 
 
 @NgModule({
@@ -25,13 +26,14 @@ import { OneProjectAllGatewaysComponent } from './one-project-all-gateways/one-p
     OneProjectGatewayComponent,
     OneProjectAllGatewaysComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    NgChartsModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        HttpClientModule,
+        NgChartsModule,
+        MomentModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
